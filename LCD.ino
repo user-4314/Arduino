@@ -14,7 +14,9 @@ Mark Bramwell, July 2010
 LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
 char KeyValue[]={'1','2','3','A','4','5','6','B','7','8','9','C','*','0','#','D'};
 byte Row=0, Col=0;
-int keypressedcount=0;
+int keypressedcount = 0;
+char str1[]="I am fju student. This display is lab3!!";
+char str2[]="Lab3 goal displaying two line to scroll.";
 
 void setup() {
   // put your setup code here, to run once:
@@ -49,23 +51,26 @@ void loop() {
     if ((keyscan()==true) && (keyindex=(Row-1)*4+Col))
     {
       
-      lcd.clear();
       if(keyindex==1){
         lcd.setCursor(0,0);
-        lcd.print("~!@#$%^&*()_+qwertyuiopasdfghjklzxcvbnm?");//按下按鈕1時要在第一行第一個的位置開始顯示第一個字串
+        lcd.print(str1);//按下按鈕1時要在第一行第一個的位置開始顯示第一個字串
       }
       if(keyindex==4){
         lcd.setCursor(0,1);
-        lcd.print("?mnbvcxzlkjhgfdsapoiuytrewq+_)(*&^%$#@!~");//按下按鈕A時要在第二行第一個的位置開始顯示第二個字串
+        lcd.print(str2);//按下按鈕A時要在第二行第一個的位置開始顯示第二個字串
       }
       if(keyindex==5){
-        for(int i=0;i<40;i++){
-          lcd.scrollDisplayLeft();                            //按下按鈕4時要讓字串從右到左移動
+        
+        for(int positionCounter = 0; positionCounter < 40; positionCounter++){
+          lcd.scrollDisplayLeft();                            //按下按鈕4時要讓字串從右到左移動40格回到原位
+          delay(300);
         }
       }
       if(keyindex==16){
-        for(int i=0;i<40;i++){
-          lcd.scrollDisplayRight();                           //按下按鈕D時要讓字串從左到右移動
+        
+        for(int positionCounter = 0; positionCounter < 40; positionCounter++){
+          lcd.scrollDisplayRight();                           //按下按鈕D時要讓字串從左到右移動40格回到原位
+          delay(300);
         }
       }
      
@@ -89,13 +94,13 @@ void loop() {
       
   if(!digitalRead(BUTTON4))
   {
-      keypressedcount++;//判斷是否按下BT4
       if(keypressedcount%2==0){
         lcd.noCursor(); //當再次按下BT4時要把cursor關掉
       }
-      if(keypressedcount%2==1){
+      else {
         lcd.cursor();   //當有按下BT4時要把cursor顯示出來
       }
+      keypressedcount++;//判斷是否按下BT4
   }
 }
 
